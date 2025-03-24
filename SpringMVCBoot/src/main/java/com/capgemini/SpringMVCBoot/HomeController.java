@@ -5,10 +5,11 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
 public class HomeController {
@@ -17,17 +18,15 @@ public class HomeController {
         return "index";
     }
 
-    @RequestMapping("add")
-    public String add(@RequestParam("num1") int i , @RequestParam("num2") int j , ModelMap model){
+    @GetMapping("/getAliens")
+   public String getAliens(Model model){
+        List<Alien> aliens= Arrays.asList(new Alien(1,"Abhishek"),new Alien(2,"Arjun"));
+        model.addAttribute("result",aliens);
+        return "showAliens";
 
-        int num3 = i + j ;
+   }
 
-        model.addAttribute("num3",num3);
-
-        return "result";
-    }
-
-    @RequestMapping("addAlien")
+    @PostMapping("addAlien")
     public String addAlien(@ModelAttribute("a1") Alien a){
 
         return "result";
